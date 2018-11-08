@@ -1,6 +1,6 @@
 (function (window) {
 
-    window.analyticsHelper = analyticsHelper;
+    window.AnalyticsHelper = analyticsHelper;
 
     function analyticsHelper(name, version, id) {
 
@@ -10,11 +10,15 @@
 
         this.uuid = getUUID(this.analyticsId);
 
-        this.trackScreen = trackScreenView;
+        this.trackScreen = trackScreen;
         this.trackEvent = trackEvent;
         this.trackSale = trackSale;
 
         this.getTransationId = getTransationId;
+    }
+
+    function trackScreen(name) {
+        trackScreenView(this.analyticsId,name,this.uuid,this.appName,this.appVersion);
     }
 
     function trackScreenView(id,screen,uuid,app,version) {
@@ -37,16 +41,16 @@
         trackEventItem(this.analyticsId, cat, act, lab, this.uuid, this.appName, this.appVersion);
     }
 
-    function trackSale(itemName,sku,price) {
+    function trackSale(itemName,sku,price,net) {
         var tid = getTransationId();
 
-        trackCommerceTransaction(this.analyticsId, price, tid, this.uuid, this.appName, this.appVersion);
+        trackCommerceTransaction(this.analyticsId, price, tid, this.uuid, this.appName, this.appVersion,net);
         trackCommerceItem(this.analyticsId, price, tid, itemName, sku, this.uuid, this.appName, this.appVersion);
     }
 
-    function trackCommerceTransaction(id, price, transid, uuid, app, version) {
+    function trackCommerceTransaction(id, price, transid, uuid, app, version,net) {
         var fullPrice = parseFloat(price);
-        var pocketPrice = fullPrice * .7;
+        var pocketPrice = parseFloat(net);
 
         var uploadString = "v=1" +
                             "&tid=" + id +
