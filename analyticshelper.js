@@ -12,11 +12,7 @@
 
         this.trackScreen = trackScreenView;
         this.trackEvent = trackEvent;
-
-        this.trackInstall = trackInstall;
-        
-        this.trackCustomEvent = trackCustomEvent;
-        this.trackPremiumUpgrade = trackPremiumUpgrade;
+        this.trackSale = trackSale;
 
         this.getTransationId = getTransationId;
     }
